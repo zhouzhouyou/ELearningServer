@@ -1,9 +1,9 @@
-drop table type;
-drop table category;
-drop table purchase;
-drop table lesson;
-drop table course;
-drop table user;
+drop table if exists type;
+drop table if exists category;
+drop table if exists purchase;
+drop table if exists lesson ;
+drop table if exists course;
+drop table if exists user;
 
 create table user
 (

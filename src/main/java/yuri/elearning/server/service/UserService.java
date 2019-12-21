@@ -24,7 +24,7 @@ public class UserService {
         return RF.success(userMapper.selectAll());
     }
 
-    public ResponseEntity<Boolean> signIn(String name, String password) {
-        return null;
+    public ResponseEntity<Integer> signIn(String name, String password) {
+        return RF.success(userMapper.selectUid(name,password));
     }
 }

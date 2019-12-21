@@ -17,6 +17,9 @@ public interface UserMapper {
     @Select("select * from user where name=#{name} and password=#{password}")
     User select(String name, String password);
 
+    @Select("select id from user where name=#{name} and password=#{password}")
+    Integer selectUid(String name, String password);
+
     @Select("select money from user where id=#{id}")
     Double queryMoney(Integer id);
 

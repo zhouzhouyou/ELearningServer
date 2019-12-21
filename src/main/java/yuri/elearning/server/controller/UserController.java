@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping("/signIn")
     @ResponseBody
-    public ResponseEntity<Boolean> signIn(@RequestParam("name") String name,
+    public ResponseEntity<Integer> signIn(@RequestParam("name") String name,
                                         @RequestParam("password") String password) {
         return userService.signIn(name, password);
     }

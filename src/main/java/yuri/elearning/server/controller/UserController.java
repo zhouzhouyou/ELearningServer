@@ -31,4 +31,18 @@ public class UserController {
                                         @RequestParam("password") String password) {
         return userService.signIn(name, password);
     }
+
+    @PostMapping("/signUp")
+    @ResponseBody
+    public ResponseEntity<String> signUp(@RequestParam("name") String name,
+                                         @RequestParam("password") String password){
+        return userService.signUp(name,password);
+    }
+
+    @PostMapping("/recharge")
+    @ResponseBody
+    public ResponseEntity<String> recharge(@RequestParam("id") Integer id,
+                                           @RequestParam("cost") Double cost){
+        return userService.recharge(id, cost);
+    }
 }

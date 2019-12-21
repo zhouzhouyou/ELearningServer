@@ -1,3 +1,5 @@
+drop table type;
+drop table category;
 drop table purchase;
 drop table lesson;
 drop table course;

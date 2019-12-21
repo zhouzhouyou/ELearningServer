@@ -1,5 +1,6 @@
 package yuri.elearning.server.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -23,8 +24,8 @@ public interface UserMapper {
     @Select("select money from user where id=#{id}")
     Double queryMoney(Integer id);
 
-    @Select("insert into user (name,password money) values(#{name},#{password},0)")
-    Integer insert(String name,String password);
+    @Insert("insert into user (name, password, money) values(#{name}, #{password}, 0)")
+    Integer insert(String name, String password);
 
     @Update("update user set money = money - #{cost} where id=#{id}")
     void purchase(Integer id, Double cost);

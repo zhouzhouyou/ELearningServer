@@ -25,21 +25,17 @@ public class UserService {
     }
 
     public ResponseEntity<Integer> signIn(String name, String password) {
-        Integer id = userMapper.selectUid(name,password);
-        if(id == null)
-            return RF.badRequest(null);
-        return RF.success(id);
+        Integer id = userMapper.selectUid(name, password);
+        return id == null ? RF.badRequest(null) : RF.success(id);
     }
 
-    public ResponseEntity<String> signUp(String name,String password){
-        Integer count = userMapper.insert(name,password);
-        if(count == 0)
-            return RF.badRequest("fail");
-        return RF.success("success");
+    public ResponseEntity<String> signUp(String name, String password) {
+        Integer count = userMapper.insert(name, password);
+        return count == 0 ? RF.badRequest("fail") : RF.success("success");
     }
 
-    public ResponseEntity<String> recharge(Integer id,Double cost){
-        userMapper.recharge(id,cost);
+    public ResponseEntity<String> recharge(Integer id, Double cost) {
+        userMapper.recharge(id, cost);
         return RF.success("success");
     }
 }

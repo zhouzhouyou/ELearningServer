@@ -11,8 +11,8 @@ import java.util.List;
 @Component
 public interface TypeMapper {
     @Select("select course from type where category = #{category}")
-    List<Integer> selectAllCourseOfCategory(Integer category);
+    List<Integer> selectAllCourseByCategory(Integer category);
 
     @Select("select category from type where course = #{course}")
-    List<Integer> selectAllCategoryOfCourse(Integer course);
+    List<Integer> selectAllCategoryByCourse(Integer course);
 }

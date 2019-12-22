@@ -41,12 +41,12 @@ public class LessonService {
         return lesson == null ? RF.badRequest(null) : RF.success(lesson);
     }
 
-    public ResponseEntity<List<LessonWithDate>> getAllLessonsWithDate(Integer uid, Integer month,Integer year) {
+    public ResponseEntity<List<LessonWithDate>> getAllLessonsWithDate(Integer uid, Integer month, Integer year) {
         List<Integer> courseIds = purchaseMapper.selectAllCourseOfUser(uid);
         List<LessonWithDate> messages = new ArrayList<>();
         for (Integer courseId : courseIds) {
             String courseName = courseMapper.selectCourseName(courseId);
-            List<Lesson> lessons = lessonMapper.selectAllLessonWithDate(courseId, month,year);
+            List<Lesson> lessons = lessonMapper.selectAllLessonWithDate(courseId, month, year);
             List<LessonWithDate> message = lessons.stream().map(lesson -> new LessonWithDate(lesson.getTime(), lesson.getTitle(), courseName, lesson.getId())).collect(Collectors.toList());
             messages.addAll(message);
         }

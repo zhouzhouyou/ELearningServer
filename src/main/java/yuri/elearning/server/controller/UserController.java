@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yuri.elearning.server.model.User;
 import yuri.elearning.server.service.UserService;
-import yuri.elearning.server.util.RF;
 
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class UserController {
         return userService.selectAll();
     }
 
+    @ApiOperation("用户登录")
     @PostMapping("/signIn")
     @ResponseBody
     public ResponseEntity<Integer> signIn(@RequestParam("name") String name,
@@ -36,6 +36,7 @@ public class UserController {
         return userService.signIn(name, password);
     }
 
+    @ApiOperation("用户注册")
     @PostMapping("/signUp")
     @ResponseBody
     public ResponseEntity<String> signUp(@RequestParam("name") String name,
@@ -43,6 +44,7 @@ public class UserController {
         return userService.signUp(name, password);
     }
 
+    @ApiOperation("用户充值")
     @PostMapping("/recharge")
     @ResponseBody
     public ResponseEntity<String> recharge(@RequestParam("id") Integer id,

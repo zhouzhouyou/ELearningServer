@@ -17,19 +17,19 @@ public class PurchaseService {
     private final CourseMapper courseMapper;
 
     @Autowired
-    public PurchaseService(PurchaseMapper purchaseMapper,UserMapper userMapper,CourseMapper courseMapper) {
+    public PurchaseService(PurchaseMapper purchaseMapper, UserMapper userMapper, CourseMapper courseMapper) {
         this.purchaseMapper = purchaseMapper;
         this.userMapper = userMapper;
         this.courseMapper = courseMapper;
     }
 
-    public ResponseEntity<String> purchaseCourse(Integer uid,Integer cid){
+    public ResponseEntity<String> purchaseCourse(Integer uid, Integer cid) {
         Double currentAccount = userMapper.queryMoney(uid);
         Double cost = courseMapper.selectCost(cid);
-        if(currentAccount < cost)
+        if (currentAccount < cost)
             return RF.badRequest("没钱了，穷逼");
-        userMapper.purchase(uid,cost);
-        purchaseMapper.insert(uid,cid);
+        userMapper.purchase(uid, cost);
+        purchaseMapper.insert(uid, cid);
         return RF.success("恭喜宁又浪费了钱");
     }
 }

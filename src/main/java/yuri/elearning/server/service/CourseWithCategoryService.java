@@ -14,7 +14,6 @@ import yuri.elearning.server.model.Course;
 import yuri.elearning.server.model.CoursePartMessage;
 import yuri.elearning.server.util.RF;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ public class CourseWithCategoryService {
         this.purchaseMapper = purchaseMapper;
     }
 
-    public ResponseEntity<List<CoursePartMessage>> getAllMineCourseMessage(Integer uid) {
+    public ResponseEntity<List<CoursePartMessage>> getAllMyCourseMessage(Integer uid) {
         List<Integer> courseIds = purchaseMapper.selectAllCourseOfUser(uid);
         List<Course> courses;
         List<CoursePartMessage> messages;
@@ -54,8 +53,8 @@ public class CourseWithCategoryService {
         return RF.success(categories);
     }
 
-    public ResponseEntity<List<CoursePartMessage>> getCoursesInCategory(Integer id) {
-        List<Integer> courseIds = typeMapper.selectAllCourseOfCategory(id);
+    public ResponseEntity<List<CoursePartMessage>> getCoursesByCategory(Integer id) {
+        List<Integer> courseIds = typeMapper.selectAllCourseByCategory(id);
         List<CoursePartMessage> messages = courseIds.stream().map(courseMapper::select).map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
         return RF.success(messages);
     }

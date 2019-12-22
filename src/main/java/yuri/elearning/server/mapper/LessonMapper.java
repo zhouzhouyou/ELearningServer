@@ -15,4 +15,6 @@ public interface LessonMapper {
 
     @Select("select * from lesson where id = #{id}")
     Lesson select(Integer id);
+
+   // @Select("select * from lesson where time between ")
 }

@@ -1,5 +1,6 @@
 package yuri.elearning.server.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -14,4 +15,7 @@ public interface PurchaseMapper {
 
     @Select("select cid from purchase where uid = #{uid}")
     List<Integer> selectAllCourseOfUser(Integer uid);
+
+    @Insert("insert into purchase values(#{uid},#{cid})")
+    Integer insert(Integer uid,Integer cid);
 }

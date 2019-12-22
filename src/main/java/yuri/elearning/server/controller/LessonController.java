@@ -27,7 +27,7 @@ public class LessonController {
     @ApiOperation("获取此课程下所有课时信息")
     @PostMapping("/allLessonByCourse")
     @ResponseBody
-    public ResponseEntity<List<LessonPartMessage>> getAllLessonMessage(@RequestParam("cid") Integer courseId) {
+    public ResponseEntity<LessonPartMessage> getAllLessonMessage(@RequestParam("cid") Integer courseId) {
         return lessonService.getAllLessonMessage(courseId);
     }
 

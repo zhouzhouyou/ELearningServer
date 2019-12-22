@@ -29,11 +29,12 @@ public class LessonService {
         this.purchaseMapper = purchaseMapper;
     }
 
-    public ResponseEntity<List<LessonPartMessage>> getAllLessonMessage(Integer cid) {
+    public ResponseEntity<LessonPartMessage> getAllLessonMessage(Integer cid) {
         List<Lesson> lessons = lessonMapper.selectAllOfCourse(cid);
         Course course = courseMapper.select(cid);
-        List<LessonPartMessage> messages = lessons.stream().map(lesson -> new LessonPartMessage(course, lesson.getTitle(), lesson.getTime(), lesson.getId())).collect(Collectors.toList());
-        return RF.success(messages);
+        List<LessonPartMessage.Message> messages = lessons.stream().map(lesson -> new LessonPartMessage.Message(lesson.getTitle(), lesson.getTime(), lesson.getId())).collect(Collectors.toList());
+
+        return RF.success(new LessonPartMessage(course,messages));
     }
 
     public ResponseEntity<Lesson> getLesson(Integer id) {

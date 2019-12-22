@@ -1,9 +1,6 @@
 package yuri.elearning.server.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 import yuri.elearning.server.model.User;
 
@@ -24,8 +21,9 @@ public interface UserMapper {
     @Select("select money from user where id=#{id}")
     Double queryMoney(Integer id);
 
-    @Insert("insert into user (name, password, money) values(#{name}, #{password}, 0)")
-    Integer insert(String name, String password);
+    @Options(useGeneratedKeys = true, keyProperty = "user.id")
+    @Insert("insert into user (name, password, money) values(#{user.name}, #{user.password}, 0)")
+    Integer insert(User user);
 
     @Update("update user set money = money - #{cost} where id=#{id}")
     void purchase(Integer id, Double cost);

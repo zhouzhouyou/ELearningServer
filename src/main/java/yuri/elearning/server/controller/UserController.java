@@ -39,7 +39,7 @@ public class UserController {
     @ApiOperation("用户注册")
     @PostMapping("/signUp")
     @ResponseBody
-    public ResponseEntity<String> signUp(@RequestParam("name") String name,
+    public ResponseEntity<Integer> signUp(@RequestParam("name") String name,
                                          @RequestParam("password") String password) {
         return userService.signUp(name, password);
     }

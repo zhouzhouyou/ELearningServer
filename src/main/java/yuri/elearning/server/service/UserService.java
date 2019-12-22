@@ -29,9 +29,13 @@ public class UserService {
         return id == null ? RF.badRequest(null) : RF.success(id);
     }
 
-    public ResponseEntity<String> signUp(String name, String password) {
-        Integer count = userMapper.insert(name, password);
-        return count == 0 ? RF.badRequest("fail") : RF.success("success");
+    public ResponseEntity<Integer> signUp(String name, String password) {
+        User user = new User();
+        user.setMoney(0.0);
+        user.setName(name);
+        user.setPassword(password);
+        Integer count = userMapper.insert(user);
+        return count == 0 ? RF.badRequest(-1) : RF.success(user.getId());
     }
 
     public ResponseEntity<String> recharge(Integer id, Double cost) {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import yuri.elearning.server.mapper.CourseMapper;
 import yuri.elearning.server.mapper.LessonMapper;
+import yuri.elearning.server.mapper.PurchaseMapper;
 import yuri.elearning.server.model.Lesson;
 import yuri.elearning.server.model.LessonPartMessage;
 import yuri.elearning.server.model.LessonWithDate;
@@ -19,10 +20,12 @@ import java.util.stream.Collectors;
 public class LessonService {
     private final CourseMapper courseMapper;
     private final LessonMapper lessonMapper;
+    private final PurchaseMapper purchaseMapper;
 
-    public LessonService(CourseMapper courseMapper, LessonMapper lessonMapper) {
+    public LessonService(CourseMapper courseMapper, LessonMapper lessonMapper, PurchaseMapper purchaseMapper) {
         this.courseMapper = courseMapper;
         this.lessonMapper = lessonMapper;
+        this.purchaseMapper = purchaseMapper;
     }
 
     public ResponseEntity<List<LessonPartMessage>> getAllLessonMessage(Integer cid) {
@@ -31,14 +34,16 @@ public class LessonService {
         return RF.success(messages);
     }
 
-    public ResponseEntity<Lesson> getLesson(Integer id){
+    public ResponseEntity<Lesson> getLesson(Integer id) {
         Lesson lesson = lessonMapper.select(id);
         return lesson == null ? RF.badRequest(null) : RF.success(lesson);
     }
 
-//    public ResponseEntity<List<LessonWithDate>> getAllLessonsWithDate(Integer month){
-//
-//    }
+    public ResponseEntity<List<LessonWithDate>> getAllLessonsWithDate(Integer uid, Integer month) {
+        List<Integer> courseIds = purchaseMapper.selectAllCourseOfUser(uid);
+        List<LessonWithDate> messages = new ArrayList<>();
+        return null;
+    }
 
 
 }

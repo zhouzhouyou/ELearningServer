@@ -16,6 +16,6 @@ public interface LessonMapper {
     @Select("select * from lesson where id = #{id}")
     Lesson select(Integer id);
 
-    @Select("select * from lesson where month(time) = #{month} and year(time) = year(now()) and cid = #{cid}")
-    List<Lesson> selectAllLessonWithDate(Integer cid, Integer month);
+    @Select("select * from lesson where month(time) = #{month} and year(time) = #{year} and cid = #{cid}")
+    List<Lesson> selectAllLessonWithDate(Integer cid, Integer month, Integer year);
 }

@@ -7,12 +7,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import yuri.elearning.server.mapper.CategoryMapper;
 import yuri.elearning.server.mapper.CourseMapper;
+import yuri.elearning.server.mapper.PurchaseMapper;
 import yuri.elearning.server.mapper.TypeMapper;
 import yuri.elearning.server.model.Category;
 import yuri.elearning.server.model.Course;
 import yuri.elearning.server.model.CoursePartMessage;
 import yuri.elearning.server.util.RF;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,17 +24,28 @@ public class CourseWithCategoryService {
     private final CourseMapper courseMapper;
     private final CategoryMapper categoryMapper;
     private final TypeMapper typeMapper;
+    private final PurchaseMapper purchaseMapper;
 
     @Autowired
-    public CourseWithCategoryService(CourseMapper courseMapper, CategoryMapper categoryMapper, TypeMapper typeMapper) {
+    public CourseWithCategoryService(CourseMapper courseMapper, CategoryMapper categoryMapper, TypeMapper typeMapper, PurchaseMapper purchaseMapper) {
         this.courseMapper = courseMapper;
         this.categoryMapper = categoryMapper;
         this.typeMapper = typeMapper;
+        this.purchaseMapper = purchaseMapper;
+    }
+
+    public ResponseEntity<List<CoursePartMessage>> getAllMineCourseMessage(Integer uid) {
+        List<Integer> courseIds = purchaseMapper.selectAllCourseOfUser(uid);
+        List<Course> courses;
+        List<CoursePartMessage> messages;
+        courses = courseIds.stream().map(courseMapper::select).collect(Collectors.toList());
+        messages = courses.stream().map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
+        return RF.success(messages);
     }
 
     public ResponseEntity<List<CoursePartMessage>> getAllCourseMessage() {
         List<Course> courses = courseMapper.selectAll();
-        List<CoursePartMessage> messages = courses.stream().map(course -> new CoursePartMessage(course.getName(),course.getId(), course.getCover())).collect(Collectors.toList());
+        List<CoursePartMessage> messages = courses.stream().map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
         return RF.success(messages);
     }
 
@@ -43,7 +56,7 @@ public class CourseWithCategoryService {
 
     public ResponseEntity<List<CoursePartMessage>> getCoursesInCategory(Integer id) {
         List<Integer> courseIds = typeMapper.selectAllCourseOfCategory(id);
-        List<CoursePartMessage> messages = courseIds.stream().map(courseMapper::select).map(course -> new CoursePartMessage(course.getName(),course.getId(), course.getCover())).collect(Collectors.toList());
+        List<CoursePartMessage> messages = courseIds.stream().map(courseMapper::select).map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
         return RF.success(messages);
     }
 

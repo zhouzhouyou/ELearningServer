@@ -30,15 +30,15 @@ create table course
 );
 
 insert into course (name, description, syllabus, teacher, cost, cover)
-VALUES ('计算机科学', '讲述计算机的科学', '大约16周，讲述从...到...', 'A老师', 16.5, null);
+VALUES ('计算机科学', '讲述计算机的科学', '大约16周，讲述从...到...', 'A老师', 16.5, 'computer science.jpg');
 insert into course (name, description, syllabus, teacher, cost, cover)
-VALUES ('计算机网络', '计算机网络', '8周', 'B老师', 50, null);
+VALUES ('计算机网络', '计算机网络', '8周', 'B老师', 50, 'computer network.jpg');
 insert into course (name, description, syllabus, teacher, cost, cover)
-VALUES ('生命与科学', '其实什么都不讲', '8周', 'C老师', 0, null);
+VALUES ('生命与科学', '其实什么都不讲', '8周', 'C老师', 0, 'biology.jpg');
 insert into course (name, description, syllabus, teacher, cost, cover)
-values ('诗词鉴赏', '唐诗宋词', '16周', 'D老师', 19, null);
+values ('诗词鉴赏', '唐诗宋词', '16周', 'D老师', 19, 'poems.jpg');
 insert into course (name, description, syllabus, teacher, cost, cover)
-values ('绘画', '画画', '摸鱼16周', 'E老师', 20, null);
+values ('绘画', '画画', '摸鱼16周', 'E老师', 20, 'drawing.jpg');
 
 create table lesson
 (

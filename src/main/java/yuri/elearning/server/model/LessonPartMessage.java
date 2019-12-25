@@ -16,6 +16,7 @@ public class LessonPartMessage {
 
     @AllArgsConstructor
     @ApiModel("课程信息")
+    @Data
     public static class Message {
         private String title;
 

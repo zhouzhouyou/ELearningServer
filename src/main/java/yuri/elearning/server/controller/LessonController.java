@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yuri.elearning.server.model.Lesson;
-import yuri.elearning.server.model.LessonPartMessage;
-import yuri.elearning.server.model.LessonWithDate;
+import yuri.elearning.server.model.CourseDetailInfo;
+import yuri.elearning.server.model.LessonBriefInfo;
 import yuri.elearning.server.service.LessonService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class LessonController {
     @ApiOperation("获取此课程下所有课时信息")
     @PostMapping("/allLessonByCourse")
     @ResponseBody
-    public ResponseEntity<LessonPartMessage> getAllLessonMessage(@RequestParam("cid") Integer courseId) {
+    public ResponseEntity<CourseDetailInfo> getAllLessonMessage(@RequestParam("cid") Integer courseId) {
         return lessonService.getAllLessonMessage(courseId);
     }
 
@@ -41,9 +41,9 @@ public class LessonController {
     @ApiOperation("获取此用户此年月下所有课时信息")
     @PostMapping("/myAllLessonWithDate")
     @ResponseBody
-    public ResponseEntity<List<LessonWithDate>> getAllLessonsWithDate(@RequestParam("uid") Integer userid,
-                                                                      @RequestParam("month") Integer month,
-                                                                      @RequestParam("year") Integer year) {
+    public ResponseEntity<List<LessonBriefInfo>> getAllLessonsWithDate(@RequestParam("uid") Integer userid,
+                                                                       @RequestParam("month") Integer month,
+                                                                       @RequestParam("year") Integer year) {
         return lessonService.getAllLessonsWithDate(userid, month, year);
     }
 }

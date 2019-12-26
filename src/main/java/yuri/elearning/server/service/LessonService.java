@@ -8,8 +8,8 @@ import yuri.elearning.server.mapper.LessonMapper;
 import yuri.elearning.server.mapper.PurchaseMapper;
 import yuri.elearning.server.model.Course;
 import yuri.elearning.server.model.Lesson;
-import yuri.elearning.server.model.LessonPartMessage;
-import yuri.elearning.server.model.LessonWithDate;
+import yuri.elearning.server.model.CourseDetailInfo;
+import yuri.elearning.server.model.LessonBriefInfo;
 import yuri.elearning.server.util.RF;
 
 import java.util.ArrayList;
@@ -29,12 +29,12 @@ public class LessonService {
         this.purchaseMapper = purchaseMapper;
     }
 
-    public ResponseEntity<LessonPartMessage> getAllLessonMessage(Integer cid) {
+    public ResponseEntity<CourseDetailInfo> getAllLessonMessage(Integer cid) {
         List<Lesson> lessons = lessonMapper.selectAllOfCourse(cid);
         Course course = courseMapper.select(cid);
-        List<LessonPartMessage.Message> messages = lessons.stream().map(lesson -> new LessonPartMessage.Message(lesson.getTitle(), lesson.getTime(), lesson.getId())).collect(Collectors.toList());
+        List<LessonBriefInfo> messages = lessons.stream().map(lesson -> new LessonBriefInfo(lesson.getTitle(), lesson.getTime(), lesson.getId(), cid)).collect(Collectors.toList());
 
-        return RF.success(new LessonPartMessage(course,messages));
+        return RF.success(new CourseDetailInfo(course,messages));
     }
 
     public ResponseEntity<Lesson> getLesson(Integer id) {
@@ -42,13 +42,12 @@ public class LessonService {
         return lesson == null ? RF.badRequest(null) : RF.success(lesson);
     }
 
-    public ResponseEntity<List<LessonWithDate>> getAllLessonsWithDate(Integer uid, Integer month, Integer year) {
+    public ResponseEntity<List<LessonBriefInfo>> getAllLessonsWithDate(Integer uid, Integer month, Integer year) {
         List<Integer> courseIds = purchaseMapper.selectAllCourseOfUser(uid);
-        List<LessonWithDate> messages = new ArrayList<>();
+        List<LessonBriefInfo> messages = new ArrayList<>();
         for (Integer courseId : courseIds) {
-            String courseName = courseMapper.selectCourseName(courseId);
             List<Lesson> lessons = lessonMapper.selectAllLessonWithDate(courseId, month, year);
-            List<LessonWithDate> message = lessons.stream().map(lesson -> new LessonWithDate(lesson.getTime(), lesson.getTitle(), courseName, lesson.getId())).collect(Collectors.toList());
+            List<LessonBriefInfo> message = lessons.stream().map(lesson -> new LessonBriefInfo(lesson.getTitle(), lesson.getTime(), lesson.getId(), courseId)).collect(Collectors.toList());
             messages.addAll(message);
         }
         return RF.success(messages);

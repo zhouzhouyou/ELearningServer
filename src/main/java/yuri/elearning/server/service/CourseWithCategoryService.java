@@ -11,7 +11,7 @@ import yuri.elearning.server.mapper.PurchaseMapper;
 import yuri.elearning.server.mapper.TypeMapper;
 import yuri.elearning.server.model.Category;
 import yuri.elearning.server.model.Course;
-import yuri.elearning.server.model.CoursePartMessage;
+import yuri.elearning.server.model.CourseBriefInfo;
 import yuri.elearning.server.util.RF;
 
 import java.util.List;
@@ -33,18 +33,18 @@ public class CourseWithCategoryService {
         this.purchaseMapper = purchaseMapper;
     }
 
-    public ResponseEntity<List<CoursePartMessage>> getAllMyCourseMessage(Integer uid) {
+    public ResponseEntity<List<CourseBriefInfo>> getAllMyCourseMessage(Integer uid) {
         List<Integer> courseIds = purchaseMapper.selectAllCourseOfUser(uid);
         List<Course> courses;
-        List<CoursePartMessage> messages;
+        List<CourseBriefInfo> messages;
         courses = courseIds.stream().map(courseMapper::select).collect(Collectors.toList());
-        messages = courses.stream().map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
+        messages = courses.stream().map(course -> new CourseBriefInfo(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
         return RF.success(messages);
     }
 
-    public ResponseEntity<List<CoursePartMessage>> getAllCourseMessage() {
+    public ResponseEntity<List<CourseBriefInfo>> getAllCourseMessage() {
         List<Course> courses = courseMapper.selectAll();
-        List<CoursePartMessage> messages = courses.stream().map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
+        List<CourseBriefInfo> messages = courses.stream().map(course -> new CourseBriefInfo(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
         return RF.success(messages);
     }
 
@@ -53,9 +53,9 @@ public class CourseWithCategoryService {
         return RF.success(categories);
     }
 
-    public ResponseEntity<List<CoursePartMessage>> getCoursesByCategory(Integer id) {
+    public ResponseEntity<List<CourseBriefInfo>> getCoursesByCategory(Integer id) {
         List<Integer> courseIds = typeMapper.selectAllCourseByCategory(id);
-        List<CoursePartMessage> messages = courseIds.stream().map(courseMapper::select).map(course -> new CoursePartMessage(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
+        List<CourseBriefInfo> messages = courseIds.stream().map(courseMapper::select).map(course -> new CourseBriefInfo(course.getName(), course.getId(), course.getCover())).collect(Collectors.toList());
         return RF.success(messages);
     }
 

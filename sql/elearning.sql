@@ -47,7 +47,7 @@ create table lesson
     time    date         not null,
     content varchar(100) not null,
     cid     integer      not null,
-    video   varchar(50),
+    video   varchar(200),
     foreign key (cid) references course (id) on delete cascade
 );
 

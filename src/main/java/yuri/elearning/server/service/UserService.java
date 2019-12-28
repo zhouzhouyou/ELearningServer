@@ -24,9 +24,9 @@ public class UserService {
         return RF.success(userMapper.selectAll());
     }
 
-    public ResponseEntity<Integer> signIn(String name, String password) {
-        Integer id = userMapper.selectUid(name, password);
-        return id == null ? RF.badRequest(null) : RF.success(id);
+    public ResponseEntity<User> signIn(String name, String password) {
+        User user = userMapper.select(name, password);
+        return user == null ? RF.badRequest(null) : RF.success(user);
     }
 
     public ResponseEntity<Integer> signUp(String name, String password) {
@@ -38,8 +38,8 @@ public class UserService {
         return count == 0 ? RF.badRequest(-1) : RF.success(user.getId());
     }
 
-    public ResponseEntity<String> recharge(Integer id, Double cost) {
+    public ResponseEntity<Double> recharge(Integer id, Double cost) {
         userMapper.recharge(id, cost);
-        return RF.success("success");
+        return RF.success(userMapper.queryMoney(id));
     }
 }

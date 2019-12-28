@@ -31,7 +31,7 @@ public class UserController {
     @ApiOperation("用户登录")
     @PostMapping("/signIn")
     @ResponseBody
-    public ResponseEntity<Integer> signIn(@RequestParam("name") String name,
+    public ResponseEntity<User> signIn(@RequestParam("name") String name,
                                           @RequestParam("password") String password) {
         return userService.signIn(name, password);
     }
@@ -47,7 +47,7 @@ public class UserController {
     @ApiOperation("用户充值")
     @PostMapping("/recharge")
     @ResponseBody
-    public ResponseEntity<String> recharge(@RequestParam("id") Integer id,
+    public ResponseEntity<Double> recharge(@RequestParam("id") Integer id,
                                            @RequestParam("cost") Double cost) {
         return userService.recharge(id, cost);
     }

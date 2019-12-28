@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import yuri.elearning.server.service.PurchaseService;
 
+import java.util.List;
+
 @Api(tags = "购买API")
 @RestController
 @RequestMapping("/api/purchase")
@@ -21,8 +23,15 @@ public class PurchaseController {
     @ApiOperation("购买课程")
     @PostMapping("/purchase")
     @ResponseBody
-    public ResponseEntity<String> purchaseCourse(@RequestParam("uid") Integer userId,
+    public ResponseEntity<Double> purchaseCourse(@RequestParam("uid") Integer userId,
                                                  @RequestParam("cid") Integer courseId) {
         return purchaseService.purchaseCourse(userId, courseId);
+    }
+
+    @ApiOperation("查询我买过什么")
+    @PostMapping("/bought")
+    @ResponseBody
+    public ResponseEntity<List<Integer>> queryMyCourses(@RequestParam("id") Integer uid) {
+        return purchaseService.queryMyCourses(uid);
     }
 }

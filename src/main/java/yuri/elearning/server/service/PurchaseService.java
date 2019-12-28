@@ -9,6 +9,8 @@ import yuri.elearning.server.mapper.PurchaseMapper;
 import yuri.elearning.server.mapper.UserMapper;
 import yuri.elearning.server.util.RF;
 
+import java.util.List;
+
 @Service
 @Component
 public class PurchaseService {
@@ -23,13 +25,17 @@ public class PurchaseService {
         this.courseMapper = courseMapper;
     }
 
-    public ResponseEntity<String> purchaseCourse(Integer uid, Integer cid) {
+    public ResponseEntity<Double> purchaseCourse(Integer uid, Integer cid) {
         Double currentAccount = userMapper.queryMoney(uid);
         Double cost = courseMapper.selectCost(cid);
         if (currentAccount < cost)
-            return RF.badRequest("没钱了，穷逼");
+            return RF.badRequest(null);
         userMapper.purchase(uid, cost);
         purchaseMapper.insert(uid, cid);
-        return RF.success("恭喜宁又浪费了钱");
+        return RF.success(userMapper.queryMoney(uid));
+    }
+
+    public ResponseEntity<List<Integer>> queryMyCourses(Integer uid) {
+        return RF.success(purchaseMapper.selectAllCourseOfUser(uid));
     }
 }

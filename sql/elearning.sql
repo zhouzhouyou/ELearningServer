@@ -1,7 +1,9 @@
+drop table if exists bookmark;
+drop table if exists design;
 drop table if exists type;
 drop table if exists category;
 drop table if exists purchase;
-drop table if exists lesson ;
+drop table if exists lesson;
 drop table if exists course;
 drop table if exists user;
 
@@ -120,7 +122,7 @@ values (2, 2);
 create table category
 (
     id          integer primary key auto_increment,
-    name        varchar(10) unique ,
+    name        varchar(10) unique,
     description varchar(100)
 );
 
@@ -139,8 +141,35 @@ create table type
     foreign key (category) references category (id)
 );
 
-insert into type values (1, 1);
-insert into type values (2, 1);
-insert into type values (3, 2);
-insert into type values (4, 3);
-insert into type values (5, 3);
+insert into type
+values (1, 1);
+insert into type
+values (2, 1);
+insert into type
+values (3, 2);
+insert into type
+values (4, 3);
+insert into type
+values (5, 3);
+
+create table design
+(
+    id   integer auto_increment primary key,
+    name varchar(10) not null,
+    p    varchar(10) not null comment 'primary color',
+    pl   varchar(10) not null comment 'primary light',
+    pd   varchar(10) not null comment 'primary dark',
+    s    varchar(10) not null comment 'secondary color',
+    sl   varchar(10) not null comment 'secondary light',
+    sd   varchar(10) not null comment 'secondary dark',
+    tp   varchar(10) not null comment 'text on primary color',
+    ts   varchar(10) not null comment 'text on secondary color',
+    uid  integer     not null comment 'created by'
+);
+
+create table bookmark
+(
+    uid integer comment 'user id',
+    did integer comment 'design id',
+    primary key (uid, did)
+);

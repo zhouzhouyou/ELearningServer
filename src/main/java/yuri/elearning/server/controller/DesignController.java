@@ -2,13 +2,9 @@ package yuri.elearning.server.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import yuri.elearning.server.model.Bookmark;
 import yuri.elearning.server.model.Design;
 import yuri.elearning.server.service.DesignService;
 
@@ -73,8 +69,8 @@ public class DesignController {
     @ApiOperation("获得用户的所有书签")
     @PostMapping("/getAllUserBookmark")
     @ResponseBody
-    public ResponseEntity<List<Bookmark>> getAllUserBookmark(@RequestParam("uid") Integer uid) {
-        return designService.selectBookmarksByUid(uid);
+    public ResponseEntity<List<Design>> getAllUserBookmark(@RequestParam("uid") Integer uid) {
+        return designService.selectDesignsByBookmarkUid(uid);
     }
 
     @ApiOperation("创建一个书签")

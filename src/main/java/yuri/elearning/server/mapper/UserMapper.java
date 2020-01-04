@@ -23,7 +23,7 @@ public interface UserMapper {
 
     @Options(useGeneratedKeys = true, keyProperty = "user.id")
     @Insert("insert into user (name, password, money) values(#{user.name}, #{user.password}, 0)")
-    Integer insert(User user);
+    Integer insert(@Param("user")User user);
 
     @Update("update user set money = money - #{cost} where id=#{id}")
     void purchase(Integer id, Double cost);

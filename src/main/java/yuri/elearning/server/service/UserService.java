@@ -30,10 +30,11 @@ public class UserService {
     }
 
     public ResponseEntity<Integer> signUp(String name, String password) {
-        User user = new User();
-        user.setMoney(0.0);
-        user.setName(name);
-        user.setPassword(password);
+        Integer id = -1;
+        User user = new User(id,name,password,0.0);
+//        user.setMoney(0.0);
+//        user.setName(name);
+//        user.setPassword(password);
         Integer count = userMapper.insert(user);
         return count == 0 ? RF.badRequest(-1) : RF.success(user.getId());
     }

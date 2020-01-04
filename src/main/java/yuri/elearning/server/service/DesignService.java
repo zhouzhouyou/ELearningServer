@@ -10,6 +10,7 @@ import yuri.elearning.server.model.Bookmark;
 import yuri.elearning.server.model.Design;
 import yuri.elearning.server.util.RF;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,9 +55,11 @@ public class DesignService {
         else return RF.success(count);
     }
 
-    public ResponseEntity<List<Bookmark>> selectBookmarksByUid(Integer uid) {
+    public ResponseEntity<List<Design>> selectDesignsByBookmarkUid(Integer uid) {
         List<Bookmark> bookmarks = bookmarkMapper.select(uid);
-        return RF.success(bookmarks);
+        List<Design> designs = new ArrayList<>();
+        bookmarks.forEach(bookmark -> designs.add(designMapper.select(bookmark.getDid())));
+        return RF.success(designs);
     }
 
     public ResponseEntity<Integer> insertBookmark(Integer uid, Integer did) {

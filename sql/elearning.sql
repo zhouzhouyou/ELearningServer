@@ -53,16 +53,16 @@ create table lesson
     foreign key (cid) references course (id) on delete cascade
 );
 
-insert into lesson (time, title, content, cid)
-VALUES ('2019-12-29', '计算机与宇宙辐射', '其实没什么关系1', 1);
+insert into lesson (time, title, content, cid, video)
+VALUES ('2019-12-29', '计算机与宇宙辐射', '其实没什么关系1', 1, 'http://techslides.com/demos/sample-videos/small.mp4');
 insert into lesson (time, title, content, cid)
 VALUES ('2019-12-30', '计算机与宇宙辐射2', '其实没什么关系2', 1);
 insert into lesson (time, title, content, cid)
 VALUES ('2019-12-31', '计算机与宇宙辐射3', '其实没什么关系3', 1);
 insert into lesson (time, title, content, cid)
 VALUES ('2020-1-1', '计算机与宇宙辐射4', '其实没什么关系4', 1);
-insert into lesson (time, title, content, cid)
-VALUES ('2019-12-21', '网络与宇宙辐射', '其实没什么关系5', 2);
+insert into lesson (time, title, content, cid, video)
+VALUES ('2019-12-21', '网络与宇宙辐射', '其实没什么关系5', 2, 'http://techslides.com/demos/sample-videos/small.mp4');
 insert into lesson (time, title, content, cid)
 VALUES ('2019-12-22', '网络与宇宙辐射2', '其实没什么关系6', 2);
 insert into lesson (time, title, content, cid)
@@ -86,17 +86,17 @@ VALUES ('2020-1-6', '宋词', '宋词~', 4);
 insert into lesson (time, title, content, cid)
 VALUES ('2020-1-7', '宋词2', '宋词~~', 4);
 insert into lesson (time, title, content, cid)
-VALUES ('2019-12-23', '两点透视', '从入门到放弃1', 5);
+VALUES ('2019-11-23', '两点透视', '从入门到放弃1', 5);
 insert into lesson (time, title, content, cid)
-VALUES ('2019-12-24', '三点透视', '从入门到放弃2', 5);
+VALUES ('2019-11-24', '三点透视', '从入门到放弃2', 5);
 insert into lesson (time, title, content, cid)
-VALUES ('2019-12-25', '如何摸鱼', '从入门到放弃3', 5);
+VALUES ('2019-11-25', '如何摸鱼', '从入门到放弃3', 5);
 insert into lesson (time, title, content, cid)
-VALUES ('2019-12-28', '如何摸鱼2', '从入门到放弃4', 5);
+VALUES ('2019-11-28', '如何摸鱼2', '从入门到放弃4', 5);
 insert into lesson (time, title, content, cid)
-VALUES ('2019-12-29', '如何摸鱼3', '从入门到放弃5', 5);
+VALUES ('2019-11-29', '如何摸鱼3', '从入门到放弃5', 5);
 insert into lesson (time, title, content, cid)
-VALUES ('2019-12-30', '如何摸鱼4', '从入门到放弃6', 5);
+VALUES ('2019-11-30', '如何摸鱼4', '从入门到放弃6', 5);
 
 create table purchase
 (
